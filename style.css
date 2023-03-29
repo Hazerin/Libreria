@@ -7,6 +7,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    max-width: 100vw;
+}
+
 nav {
     height: 80px;
     display: flex;
@@ -16,6 +20,10 @@ img {
     width: 100%; /* in modo che sia larga il 100% del parent senza sbordare */
     height: 100%;
     max-height: 50vh; /* visualizzazione migliore su schermi estremamente larghi rispetto all'altezza */
+}
+
+p {
+    line-height: 1.5;
 }
 
 .nav__container {
@@ -64,6 +72,74 @@ li {
 
 .nav__link--primary:hover { /* va messo dopo primary in quanto sono dettagli che hanno la priorità in questo caso specifico */
     text-decoration: none;
+}
+
+.btn__menu {
+    background-color: transparent;
+    font-size: 40px;
+    text-align: center;
+    border: none;
+    color: #7342d6;
+    display: none;
+}
+
+.menu__backdrop {
+    position: absolute; /* lo voglio chiaramente indipendente dagli altri elementi */
+    background-color: #242424;
+    top: 0;
+    left: 0;
+    right: 0; /* Lo genera e lo estende fino a toccare tutti i bordi */
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: none; da non fare in quanto non è animabile (non disegna alcuna base di partenza), quindi l'alternativa è: */
+    opacity: 0; /* genera gli elementi e poi li nasconde con l'hidden seguenti */
+    visibility: hidden; /* anche se è hidden, l'opacità a 0 serve per la transizione */
+    transition: all 300ms ease; /* senza all l'effetto non ci sarebbe transizione quando si chiude il menu */
+}
+
+.menu--open {
+    max-height: 100vh; /* utilità discutibile in quanto si è già ordinato al menu__backdrop di aderire alle 4 pareti */
+    overflow: hidden;
+}
+
+.menu--open .menu__backdrop { /* quando entrambe le condizioni si verificano */
+    visibility: visible;
+    opacity: 1;
+}
+
+.btn__menu--close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    padding: 8px;
+    color: white;
+}
+
+.menu__list {
+    padding: 32px 0;
+}
+
+.menu__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu__link {
+    font-size: 40px;
+    color: white;
+}
+
+
+/* 
+LANDING
+*/
+
+#landing {
+    background-color: rgba(15, 66, 214, 0.1);
 }
 
 #landing {
@@ -124,4 +200,246 @@ button:active { /* active = cliccato in questo caso. Si abbassa di 3 px */
 
 .header__img--wrapper {
     padding: 20px; /* riduce leggermente le dimensioni dell'immagine allargando il padding del contenitore, che tuttavia deve ridurre l'immagine per poterci stare nel parent. */
-} /* 19:33 */
+    z-index: 2; /* in modo che questa immagine compaia sopra l'onda e non si sovrapponga se magari si usa uno schermo più piccolo */
+}
+
+.container {
+    padding: 65px 0;;
+}
+
+.row {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.row__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* o alternativamente limitare le dimension del bottone */
+}
+
+.no-cursor {
+    cursor: not-allowed;
+}
+
+.no-cursor:hover {
+    text-decoration: none; /* ha la priorità rispetto a istruzioni precedenti */
+}
+
+/*
+HIGHLIGHTS
+*/
+
+#highlights:after,
+#highlights:before {
+
+    background: url(assets/wave.svg);
+    position: absolute; /* posizione dipendente in base al genitore "relative" e che può sovrapporsi, gli absolute sono infatti esonerati dal normale flusso e seguono lo scroll della pagina o il relativo genitore. */
+    content: "";
+    background-size: cover; /* la scala in modo che copra il background senza alterarne le proporzioni */
+    background-repeat: no-repeat; /* la piazza una sola volta e non la ripete se lo spazio non basta */
+    width: 101vw;
+    height: 12vw;
+    z-index: 1;
+    left: 0;
+
+}
+
+#highlights {
+    position: relative; /*il genitore a cui deve fare riferimento*/
+    max-width: 100vw;
+}
+
+#highlights:before {
+    top: 1px;
+    transform: translateY(-100%); /* lo conficca negli highlights in modo che si comepentri lo sfondo e appaia come tutt'uno */
+}
+
+#highlights:after { /* Speculare al before */
+    bottom: 1px;
+    transform: translateY(100%) rotate(180deg);
+}
+
+.highlight__wrapper {
+    display: flex;
+    flex-wrap: wrap; /* accorgimento per andare a capo sugli schermi piccoli */
+}
+
+.highlight {
+    padding: 0 24px;
+    width: calc(100% / 3); /* esattamente un terzo */
+    display: flex;
+    align-items: center;
+    /* justify-content: center; non fa nulla a risoluzione alte, dà problemi a quelle basse quando a risoluzioni molto basse si deforma il contenitore*/
+    flex-direction: column;
+}
+
+.highlight__para {
+    text-align: center;
+    max-width: 280px;
+}
+
+.highlight__img {
+    border: 2px solid #7342d6;
+    border-radius: 4px;
+    font-size: 32px;
+    margin-bottom: 24px;
+    width: 100px;
+    height: 100px;
+    display: flex;             /* tutti insieme mettono il fulmine al centro della scatola */
+    align-items: center;
+    justify-content: center;
+}
+
+.highlight__subtitle {
+    font-size: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/*
+FEATURES
+*/
+
+#features {
+    background-color: rgba(10, 151, 15, 1);
+    padding-top: 8vw;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book {
+    width: 25%;
+    padding: 24px;
+}
+
+.book__img {
+    max-height: 380px;
+    transition: all 300ms ease;
+    cursor: no-drop; /* il cursore diventa un segnale di divieto, ha senso per indicare per esempio che non succederà nulla cliccando su un dato elemento */
+}
+
+.book__img--wrapper {
+    margin-bottom: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+}
+
+.book:hover .book__img { /* è un AND: quando si passa sopra al libro, viene applicato questo alla book img */
+    transform: scale(1.04); /* non sborda per via dell'overflow: hidden del contenitore */
+}
+
+.book__title {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.book__title:hover {
+    text-decoration: underline;
+    cursor: no-drop;
+}
+
+.book__ratings {
+    margin-bottom: 8px;
+    color: #fabf2a;
+}
+
+.book__price--normal {
+    text-decoration: line-through; /* linea cancellante */
+    padding-right: 6px;
+    color: #bfbfbf;
+}
+
+/*
+EXPLORE
+*/
+
+#explore {
+    background-color: #7acfb4;
+}
+
+/*
+FOOTER
+*/
+
+footer {
+    background-color: #242424;
+}
+
+.footer__logo--img {
+    width: 160px;
+    filter: grayscale(1) invert(1); /* vengono prima trasmutati in colori appartenenti a scale di grigi e poi invertiti, se era nero, diventa bianco */
+}
+
+.footer__link,
+.footer__copyright {
+    color: #ffff;
+}
+
+.footer__logo {
+    display: flex; /* a volte l'immagine contenuta in un image ha una dimensione diversa di un blocco che lo contiene (e l'image non dovrebbe avere dimensione). Si risolve col display: flex per qualche motivo. */
+}
+
+.footer__list {
+    margin: 10px 0 24px 0;
+}
+
+.footer__link {
+    padding: 24px 0 24px 0;
+}
+
+.footer__link {
+    padding: 0 8px;
+}
+
+/*
+TABLETS
+*/
+@media (max-width: 768px) {
+    .header__description {
+        padding: 0 24px; /* per far tenere alle parole un pò di spazio dal lato dello schermo */
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    button {
+        font-size: 18px;
+    }
+
+    .book {
+        width: 50%;
+    }
+}
+
+/*
+SMALL PHONES, LARGE SMARTPHONES
+*/
+
+@media (max-width: 550px) {
+    .nav__links {
+        display: none;
+    }
+
+    .highlight {
+        width: 100%;
+    }
+
+    .btn__menu {
+        display: block; /* genera un normale blocco. Cosi l'icona del menù la si vede solo su schermate piccole. */
+    }
+
+    .highlight:not(:last-child) {
+        margin-bottom: 24px;
+    }
+}
