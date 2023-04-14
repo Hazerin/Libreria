@@ -213,6 +213,7 @@ button:active { /* active = cliccato in questo caso. Si abbassa di 3 px */
     margin: 0 auto;
 }
 
+
 .row__column {
     display: flex;
     flex-direction: column;
@@ -330,7 +331,7 @@ FEATURES
     display: flex;
 }
 
-.book:hover .book__img { /* è un AND: quando si passa sopra al libro, viene applicato questo alla book img */
+.book:hover .book__img { /* è un selettore discendente: quando si passa sopra al libro, visto che ha come "genitore" lo pseudo-elemento hover, lo ingrandisce. Hover ovviamente esiste solo quando c'è il mouse sopra. */
     transform: scale(1.04); /* non sborda per via dell'overflow: hidden del contenitore */
 }
 
